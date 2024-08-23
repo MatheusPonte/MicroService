@@ -11,6 +11,7 @@ import jakarta.transaction.Transactional;
 @Service
 public class UserService {
     
+    @Autowired
     final UserRepository userRepository;
 
     public UserService(UserRepository userRepository){
