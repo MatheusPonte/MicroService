@@ -1,6 +1,7 @@
 package com.ms.user.models;
 
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -21,47 +22,37 @@ import org.springframework.security.core.userdetails.UserDetails;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
-public class UserModel implements UserDetails{
-
-
+public class UserModel implements Serializable {
+    private static final long serialVersionUID = 1L;
+            
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID userId;
     private String name;
     private String email;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+    public UUID getUserId() {
+        return userId;
     }
 
-    @Override
-    public String getPassword() {
-        return "";
+    public void setUserId(UUID userId) {
+        this.userId = userId;
     }
 
-    @Override
-    public String getUsername() {
-        return "";
+    public String getName() {
+        return name;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return UserDetails.super.isAccountNonExpired();
+    public void setName(String name) {
+        this.name = name;
     }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return UserDetails.super.isAccountNonLocked();
+    public String getEmail() {
+        return email;
     }
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return UserDetails.super.isCredentialsNonExpired();
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    @Override
-    public boolean isEnabled() {
-        return UserDetails.super.isEnabled();
-    }
 }
