@@ -1,5 +1,7 @@
 package com.ms.user.service;
 
+import com.ms.user.producers.UserProducers;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,13 +15,18 @@ public class UserService {
     
     @Autowired
     final UserRepository userRepository;
+    final UserProducers userProducers;
 
-    public UserService(UserRepository userRepository){
+
+    public UserService(UserRepository userRepository, UserProducers userProducers){
         this.userRepository = userRepository;
+        this.userProducers = userProducers;
     }
 
     @Transactional
     public UserModel save(UserModel userModel){
-        return userRepository.save(userModel);
+        userRepository.save(userModel);
+        userProducers.publishMessageEmail(userModel);
+        return userModel;
     }
 }
